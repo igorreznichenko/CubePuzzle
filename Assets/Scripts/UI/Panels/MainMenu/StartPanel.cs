@@ -1,4 +1,5 @@
 using CubePuzzle.Constants;
+using CubePuzzle.VFXs;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +13,9 @@ namespace CubePuzzle.UI.Panels.MainMenu
 
 		[SerializeField]
 		private Button _exitButton;
+
+		[SerializeField]
+		private Fader _fader;
 
 		private void OnEnable()
 		{
@@ -42,7 +46,7 @@ namespace CubePuzzle.UI.Panels.MainMenu
 
 		private void OnStartButtonClickEventHandler()
 		{
-			SceneManager.LoadScene(SceneNames.GAME_SCENE_NAME);
+			_fader.FadeIn(() => SceneManager.LoadScene(SceneNames.GAME_SCENE_NAME));
 		}
 	}
 }

@@ -1,4 +1,5 @@
 using CubePuzzle.Extensions;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,23 +16,31 @@ namespace CubePuzzle.VFXs
 
 		private Coroutine _fadeCoroutine = null;
 
-		[ContextMenu("FadeIn")]
 		public void FadeIn()
 		{
-			this.KillCoroutine(ref _fadeCoroutine);
-
-			_fadeCoroutine = StartCoroutine(FadeCoroutine(0, 1, _time));
+			FadeIn(null);
 		}
 
-		[ContextMenu("FadeOut")]
-		public void FadeOut()
+		public void FadeIn(Action callback)
 		{
 			this.KillCoroutine(ref _fadeCoroutine);
 
-			_fadeCoroutine = StartCoroutine(FadeCoroutine(1, 0, _time));
+			_fadeCoroutine = StartCoroutine(FadeCoroutine(0, 1, _time, callback));
 		}
 
-		private IEnumerator FadeCoroutine(float from, float to, float time)
+		public void FadeOut()
+		{
+			FadeOut(null);
+		}
+
+		public void FadeOut(Action callback)
+		{
+			this.KillCoroutine(ref _fadeCoroutine);
+
+			_fadeCoroutine = StartCoroutine(FadeCoroutine(1, 0, _time, callback));
+		}
+
+		private IEnumerator FadeCoroutine(float from, float to, float time, Action callback)
 		{
 			Color current = _target.color;
 			Color targetColor = current;
@@ -54,6 +63,8 @@ namespace CubePuzzle.VFXs
 			}
 
 			_target.color = targetColor;
+
+			callback?.Invoke();
 		}
 	}
 }
