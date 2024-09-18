@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c18ca095b7fed714db4c019630a982e8
+guid: 231c8cdae069fe342a98e30adcd3d7e9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,37 +8,37 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Bevel
-    second: {fileID: 2100000, guid: 5c00511b606aded43813821ce1bf4ad5, type: 2}
+    second: {fileID: 2100000, guid: 28f1785d308a07146bb87239da3074c7, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Blue
-    second: {fileID: 2100000, guid: eb3461b990f954d4a8f8d5fc6fc28913, type: 2}
+    second: {fileID: 2100000, guid: 8d56860c7e1bcfc49b197acd37e9453c, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Green
-    second: {fileID: 2100000, guid: 3f471cbd667c8b742bc375cac19e0d82, type: 2}
+    second: {fileID: 2100000, guid: 0cc41c5640a785e40be7771414787ffb, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Orange
-    second: {fileID: 2100000, guid: c19dae158eb9fe94fa684b28a86cad0e, type: 2}
+    second: {fileID: 2100000, guid: 936eb3f3b26255e4cba5e26a2c592545, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Red
-    second: {fileID: 2100000, guid: ada780eecff929e42a275fbd2832a91f, type: 2}
+    second: {fileID: 2100000, guid: 6d1bb2d9e7f5d86429b0831ace6c8b08, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: White
-    second: {fileID: 2100000, guid: 135ea74173785424991016e6cfa8c91a, type: 2}
+    second: {fileID: 2100000, guid: da5c794aee736cd44bee450fba36fef0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Yellow
-    second: {fileID: 2100000, guid: a64904ce763ced945a2bea559d758cc6, type: 2}
+    second: {fileID: 2100000, guid: bbda63d23795a424b80ab0312cc1225a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
