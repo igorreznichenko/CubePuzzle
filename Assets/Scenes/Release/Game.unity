@@ -418,6 +418,26 @@ PrefabInstance:
       propertyPath: _centerPoint
       value: 
       objectReference: {fileID: 395733939}
+    - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
+        type: 3}
+      propertyPath: _moveSmoothTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
+        type: 3}
+      propertyPath: _zoomSmoothTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
+        type: 3}
+      propertyPath: _moveSensitivity
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
+        type: 3}
+      propertyPath: _zoomSensitivity
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
