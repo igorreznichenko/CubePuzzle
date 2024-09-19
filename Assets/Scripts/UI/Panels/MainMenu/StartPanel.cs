@@ -46,7 +46,7 @@ namespace CubePuzzle.UI.Panels.MainMenu
 
 		private void OnStartButtonClickEventHandler()
 		{
-			_fader.FadeIn(() => SceneManager.LoadScene(SceneNames.GAME_SCENE_NAME));
+			_fader.FadeIn(() => SceneManager.LoadScene(SceneNames.CUBE_SCENE_NAME));
 		}
 	}
 }

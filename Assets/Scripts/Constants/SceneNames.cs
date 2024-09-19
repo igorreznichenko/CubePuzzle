@@ -4,6 +4,6 @@ namespace CubePuzzle.Constants
 	{
 		public const string MAIN_MENU_SCENE_NAME = "MainMenu";
 
-		public const string GAME_SCENE_NAME = "Game";
+		public const string CUBE_SCENE_NAME = "Cube";
 	}
 }
