@@ -1,5 +1,6 @@
 using CubePuzzle.Constants;
 using CubePuzzle.Cube.Enums;
+using CubePuzzle.Interaction;
 using System;
 using System.Collections;
 using System.Linq;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 namespace CubePuzzle.Cube
 {
-	public class Cube : MonoBehaviour
+	public class Cube : MonoBehaviour, ISwipeInteractable
 	{
 		[SerializeField]
 		private CubePart[] _parts;
@@ -21,13 +22,6 @@ namespace CubePuzzle.Cube
 		private float _rotationTime;
 
 		private bool _isStartRotation = false;
-
-		[Header("Debug")]
-		[SerializeField]
-		private Vector3 _touchPosition;
-
-		[SerializeField]
-		private Vector3 _touchDirection;
 
 		private void Start()
 		{
@@ -48,19 +42,6 @@ namespace CubePuzzle.Cube
 				new CubePlane(Enums.CubePlaneType.YZ, offset),
 				new CubePlane(Enums.CubePlaneType.YZ, -offset),
 			};
-		}
-
-		[ContextMenu("Debug rotate")]
-		private void Rotate()
-		{
-			Rotate(_touchPosition, _touchDirection);
-		}
-
-		[ContextMenu("CheckSolving")]
-		private void CheckSolving()
-		{
-			bool isSolved = CheckSolve(_parts);
-			print("IsSolved:" + isSolved);
 		}
 
 		public void Rotate(Vector3 touchPosition, Vector3 direction)
@@ -266,6 +247,11 @@ namespace CubePuzzle.Cube
 			}
 
 			return result;
+		}
+
+		public void Interact(Vector3 touchPosition, Vector3 direction)
+		{
+			Rotate(touchPosition, direction);
 		}
 	}
 }
