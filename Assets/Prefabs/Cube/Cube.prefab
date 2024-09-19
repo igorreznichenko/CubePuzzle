@@ -95,6 +95,7 @@ MonoBehaviour:
   - {fileID: 8108864028819618696}
   - {fileID: 7852426306561227098}
   _collider: {fileID: 3953664756965333689}
+  _rotationTime: 1
   _touchPosition: {x: 0, y: 0, z: 0}
   _touchDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &5072193935791790947

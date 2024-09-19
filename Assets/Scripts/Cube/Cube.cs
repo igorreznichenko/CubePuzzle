@@ -1,4 +1,7 @@
+using CubePuzzle.Constants;
 using CubePuzzle.Cube.Enums;
+using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -12,20 +15,19 @@ namespace CubePuzzle.Cube
 		[SerializeField]
 		private Collider _collider;
 
+		private CubePlane[] _cubePlanes;
+
+		[SerializeField]
+		private float _rotationTime;
+
+		private bool _isStartRotation = false;
+
 		[Header("Debug")]
 		[SerializeField]
 		private Vector3 _touchPosition;
 
 		[SerializeField]
 		private Vector3 _touchDirection;
-
-		private CubePlane[] _cubePlanes;
-
-		private const int CUBE_SIDES = 6;
-
-		private const float SELECTION_ERRORR_VALUE = 0.001f;
-
-		private const float ONE_ROTATION_ANGLE = 90f;
 
 		private void Start()
 		{
@@ -37,7 +39,7 @@ namespace CubePuzzle.Cube
 
 			float offset = _collider.bounds.size.x / 2;
 
-			_cubePlanes = new CubePlane[CUBE_SIDES]
+			_cubePlanes = new CubePlane[CubeConstants.CUBE_SIDES]
 			{
 				new CubePlane(Enums.CubePlaneType.XZ, offset),
 				new CubePlane(Enums.CubePlaneType.XZ, -offset),
@@ -63,16 +65,21 @@ namespace CubePuzzle.Cube
 
 		public void Rotate(Vector3 touchPosition, Vector3 direction)
 		{
-			touchPosition = transform.InverseTransformPoint(touchPosition);
-			direction = transform.InverseTransformDirection(direction);
+			if (!_isStartRotation)
+			{
+				_isStartRotation = true;
 
-			CubePart part = GetClosestPart(touchPosition);
+				touchPosition = transform.InverseTransformPoint(touchPosition);
+				direction = transform.InverseTransformDirection(direction);
 
-			Vector3 rotateAroundAxis = GetRotateAroundAxis(touchPosition, direction);
+				CubePart part = GetClosestPart(touchPosition);
 
-			CubePart[] rotatableParts = GetRotatableParts(part, rotateAroundAxis);
+				Vector3 rotateAroundAxis = GetRotateAroundAxis(touchPosition, direction);
 
-			RotatePartsAroundCenterPoint(rotatableParts, rotateAroundAxis);
+				CubePart[] rotatableParts = GetRotatableParts(part, rotateAroundAxis);
+
+				StartCoroutine(RotatePartsAroundCenterPointCoroutine(rotatableParts, rotateAroundAxis, () => _isStartRotation = false));
+			}
 		}
 
 		private bool CheckSolve(CubePart[] parts)
@@ -126,15 +133,39 @@ namespace CubePuzzle.Cube
 			return parts.Select(x => x.GetFaceByDirection(worldDirection)).Where(x => x != null).ToArray();
 		}
 
-		private void RotatePartsAroundCenterPoint(CubePart[] rotatableParts, Vector3 rotateAroundAxis)
+		private IEnumerator RotatePartsAroundCenterPointCoroutine(CubePart[] rotatableParts, Vector3 rotateAroundAxis, Action callback)
 		{
 			Vector3 centerPoint = GetCenterPointOfCubeParts(rotatableParts);
 
-			foreach (var part in rotatableParts)
+			float currentRotation = 0;
+			float deltaRotation;
+
+			float rotationAmountPerSecond = CubeConstants.ONE_ROTATION_ANGLE / _rotationTime;
+
+			while(currentRotation < CubeConstants.ONE_ROTATION_ANGLE)
 			{
-				part.RotateAround(centerPoint, rotateAroundAxis, ONE_ROTATION_ANGLE);
+				deltaRotation = rotationAmountPerSecond * Time.deltaTime;
+
+				currentRotation += deltaRotation;
+
+				RotateParts(rotatableParts, rotateAroundAxis, centerPoint, deltaRotation);
+
+				yield return null;
 			}
 
+			deltaRotation = CubeConstants.ONE_ROTATION_ANGLE - currentRotation;
+			
+			RotateParts(rotatableParts, rotateAroundAxis, centerPoint, deltaRotation);
+
+			callback?.Invoke();
+		}
+
+		private static void RotateParts(CubePart[] rotatableParts, Vector3 rotateAroundAxis, Vector3 centerPoint, float deltaRotation)
+		{
+			foreach (var part in rotatableParts)
+			{
+				part.RotateAround(centerPoint, rotateAroundAxis, deltaRotation);
+			}
 		}
 
 		private Vector3 GetCenterPointOfCubeParts(CubePart[] rotatableParts)
@@ -205,7 +236,7 @@ namespace CubePuzzle.Cube
 			{
 				float value = Vector3.Dot(x.LocalPosition, rotateAroundAxis);
 
-				if (value > pointValue - SELECTION_ERRORR_VALUE && value < pointValue + SELECTION_ERRORR_VALUE)
+				if (value > pointValue - CubeConstants.SELECTION_ERRORR_VALUE && value < pointValue + CubeConstants.SELECTION_ERRORR_VALUE)
 				{
 					return true;
 				}
