@@ -9,6 +9,8 @@ namespace CubePuzzle.Cube
 	{
 		private CubePlaneType _cubePlaneType;
 
+		private const float POINT_POSITION_ERROR_DELTA = 0.00001f;
+
 		public CubePlaneType CubePlaneType
 		{
 			get { return _cubePlaneType; }
@@ -38,7 +40,7 @@ namespace CubePuzzle.Cube
 					break;
 			}
 
-			return offsetPoint == _offset;
+			return offsetPoint - POINT_POSITION_ERROR_DELTA < _offset && offsetPoint + POINT_POSITION_ERROR_DELTA > _offset;
 		}
 
 		public Vector3[] GetAxises()
