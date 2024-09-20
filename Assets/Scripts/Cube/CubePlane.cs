@@ -1,46 +1,41 @@
 using CubePuzzle.Cube.Enums;
+using CubePuzzle.Interaction;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace CubePuzzle.Cube
 {
-	public class CubePlane
+	public class CubePlane : MonoBehaviour, ISwipeInteractable
 	{
+		[SerializeField]
 		private CubePlaneType _cubePlaneType;
 
-		private const float POINT_POSITION_ERROR_DELTA = 0.001f;
+		public event Action<CubePlane, Vector3, Vector3> InteractionEvent;
 
 		public CubePlaneType CubePlaneType
 		{
 			get { return _cubePlaneType; }
 		}
 
-		private float _offset;
-
-		public float Offset
+		public void Interact(Vector3 touchPosition, Vector3 direction)
 		{
-			get { return _offset; }
+			InteractionEvent?.Invoke(this, touchPosition, direction);
 		}
 
-		public bool ContainsPoint(Vector3 point)
+		private float GetOffset()
 		{
-			float offsetPoint = 0;
-
-			switch (CubePlaneType)
+			switch (_cubePlaneType)
 			{
 				case CubePlaneType.XY:
-					offsetPoint = point.z;
-					break;
+					return transform.localPosition.z;
 				case CubePlaneType.XZ:
-					offsetPoint = point.y;
-					break;
+					return transform.localPosition.y;
 				case CubePlaneType.YZ:
-					offsetPoint = point.x;
-					break;
+					return transform.localPosition.x;
 			}
 
-			return offsetPoint - POINT_POSITION_ERROR_DELTA < _offset && offsetPoint + POINT_POSITION_ERROR_DELTA > _offset;
+			throw new Exception("Not valid cube plane type!");
 		}
 
 		public Vector3[] GetAxises()
@@ -83,13 +78,8 @@ namespace CubePuzzle.Cube
 
 		public float GetOffsetSighn()
 		{
-			return _offset / Mathf.Abs(_offset);
-		}
-
-		public CubePlane(CubePlaneType cubePlaneType, float offset)
-		{
-			_cubePlaneType = cubePlaneType;
-			_offset = offset;
+			float offset = GetOffset();
+			return offset / Mathf.Abs(offset);
 		}
 	}
 }

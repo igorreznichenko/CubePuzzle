@@ -21,12 +21,12 @@ namespace CubePuzzle.Cube
 
 		private float _rotationTime;
 
-		public CubeRotationMode(MonoBehaviour target, CubePlane[] planes, float rotationTime) : base(target, planes)
+		public CubeRotationMode(MonoBehaviour target, float rotationTime) : base(target)
 		{
 			_rotationTime = rotationTime;
 		}
 
-		public override void Rotate(Vector3 interactionPoint, Vector3 direction)
+		public override void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction)
 		{
 			if (!_isStartRotation)
 			{
@@ -35,7 +35,7 @@ namespace CubePuzzle.Cube
 				interactionPoint = _target.transform.InverseTransformPoint(interactionPoint);
 				direction = _target.transform.InverseTransformDirection(direction);
 
-				Vector3 rotationAxis = GetRotateAroundAxis(interactionPoint, direction);
+				Vector3 rotationAxis = GetRotateAroundAxis(plane, direction);
 
 				_target.StartCoroutine(RotateCoroutine(_target.transform, rotationAxis, _rotationTime, () => _isStartRotation = false));
 			}
