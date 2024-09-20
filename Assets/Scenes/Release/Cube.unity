@@ -419,6 +419,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1854906537068301003}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1868780541 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 741931583961906168, guid: 95acb64d4e977584cb5f94b2ec302cdd,
+    type: 3}
+  m_PrefabInstance: {fileID: 3443838200894820229}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7b31dddb0b328499385d021f026f0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1958801688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
@@ -514,6 +526,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 929151867487124329, guid: 7220449edc4d1294eb9eb2bf75f6146e,
         type: 3}
+      propertyPath: _cube
+      value: 
+      objectReference: {fileID: 1868780541}
+    - target: {fileID: 929151867487124329, guid: 7220449edc4d1294eb9eb2bf75f6146e,
+        type: 3}
       propertyPath: _swipeInteractor
       value: 
       objectReference: {fileID: 576222913}
@@ -522,6 +539,26 @@ PrefabInstance:
       propertyPath: _cameraMovementController
       value: 
       objectReference: {fileID: 1958801688}
+    - target: {fileID: 1419892025961537935, guid: 7220449edc4d1294eb9eb2bf75f6146e,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419892025961537935, guid: 7220449edc4d1294eb9eb2bf75f6146e,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419892025961537935, guid: 7220449edc4d1294eb9eb2bf75f6146e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419892025961537935, guid: 7220449edc4d1294eb9eb2bf75f6146e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1751503781647503109, guid: 7220449edc4d1294eb9eb2bf75f6146e,
         type: 3}
       propertyPath: m_Name

@@ -9,7 +9,7 @@ namespace CubePuzzle.Cube
 	{
 		private CubePlaneType _cubePlaneType;
 
-		private const float POINT_POSITION_ERROR_DELTA = 0.00001f;
+		private const float POINT_POSITION_ERROR_DELTA = 0.001f;
 
 		public CubePlaneType CubePlaneType
 		{
