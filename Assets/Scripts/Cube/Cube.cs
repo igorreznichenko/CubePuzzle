@@ -51,6 +51,7 @@ namespace CubePuzzle.Cube
 				_isStartRotation = true;
 
 				touchPosition = transform.InverseTransformPoint(touchPosition);
+
 				direction = transform.InverseTransformDirection(direction);
 
 				CubePart part = GetClosestPart(touchPosition);
@@ -141,11 +142,11 @@ namespace CubePuzzle.Cube
 			callback?.Invoke();
 		}
 
-		private static void RotateParts(CubePart[] rotatableParts, Vector3 rotateAroundAxis, Vector3 centerPoint, float deltaRotation)
+		private void RotateParts(CubePart[] rotatableParts, Vector3 rotateAroundAxis, Vector3 centerPoint, float deltaRotation)
 		{
 			foreach (var part in rotatableParts)
 			{
-				part.RotateAround(centerPoint, rotateAroundAxis, deltaRotation);
+				part.RotateAround( transform.TransformPoint(centerPoint), transform.TransformDirection(rotateAroundAxis), deltaRotation);
 			}
 		}
 

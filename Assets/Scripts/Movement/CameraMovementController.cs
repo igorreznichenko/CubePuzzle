@@ -66,6 +66,16 @@ namespace CubePuzzle.Movement
 			_nextDistance = _currentDistance;
 		}
 
+		public void Enable()
+		{
+			_isEnabled = true;
+		}
+
+		public void Disable()
+		{
+			_isEnabled = false;
+		}
+
 		private void Update()
 		{
 			if (_isEnabled)
