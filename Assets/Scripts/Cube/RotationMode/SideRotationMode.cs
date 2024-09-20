@@ -24,13 +24,13 @@ namespace CubePuzzle.Cube
 
 		private float _rotationTime;
 
-		public SideRotationMode(MonoBehaviour target, CubePlane[] cubePlanes, CubePart[] parts, float rotationTime) : base(target, cubePlanes)
+		public SideRotationMode(MonoBehaviour target, CubePart[] parts, float rotationTime) : base(target)
 		{
 			_parts = parts;
 			_rotationTime = rotationTime;
 		}
 
-		public override void Rotate(Vector3 interactionPoint, Vector3 direction)
+		public override void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction)
 		{
 			if (!_isStartRotation)
 			{
@@ -42,7 +42,7 @@ namespace CubePuzzle.Cube
 
 				CubePart part = GetClosestPart(interactionPoint);
 
-				Vector3 rotateAroundAxis = GetRotateAroundAxis(interactionPoint, direction);
+				Vector3 rotateAroundAxis = GetRotateAroundAxis(plane, direction);
 
 				CubePart[] rotatableParts = GetRotatableParts(part, rotateAroundAxis);
 

@@ -7,15 +7,16 @@ using UnityEngine;
 
 namespace CubePuzzle.Cube
 {
-	public class Cube : MonoBehaviour, ISwipeInteractable
+	public class Cube : MonoBehaviour
 	{
 		[SerializeField]
 		private CubePart[] _parts;
 
 		[SerializeField]
-		private Collider _collider;
+		private CubePlane[] _planes;
 
-		private CubePlane[] _cubePlanes;
+		[SerializeField]
+		private Collider _collider;
 
 		[SerializeField]
 		private float _rotationTime;
@@ -29,37 +30,55 @@ namespace CubePuzzle.Cube
 			Initialize();
 		}
 
+		private void OnEnable()
+		{
+			SubscribeEvents();
+		}
+
+		private void OnDisable()
+		{
+			UnsubscribeEvents();
+		}
+
+		private void SubscribeEvents()
+		{
+			foreach (var plane in _planes)
+			{
+				plane.InteractionEvent += OncubePlaneInteractionEventHandler;
+			}
+		}
+
+		private void UnsubscribeEvents()
+		{
+			foreach (var plane in _planes)
+			{
+				plane.InteractionEvent -= OncubePlaneInteractionEventHandler;
+			}
+		}
+
+		private void OncubePlaneInteractionEventHandler(CubePlane plane, Vector3 vector1, Vector3 vector2)
+		{
+			Rotate(plane, vector1, vector2);
+		}
+
 		private void Initialize()
 		{
-
-			float offset = _collider.bounds.size.x / 2;
-
-			_cubePlanes = new CubePlane[CubeConstants.CUBE_SIDES]
-			{
-				new CubePlane(CubePlaneType.XZ, offset),
-				new CubePlane(CubePlaneType.XZ, -offset),
-				new CubePlane(CubePlaneType.XY, offset),
-				new CubePlane(CubePlaneType.XY, -offset),
-				new CubePlane(CubePlaneType.YZ, offset),
-				new CubePlane(CubePlaneType.YZ, -offset),
-			};
-
 			_rotationModes = new RotationModeStrategy[2]
 			{
-				new SideRotationMode(this, _cubePlanes, _parts, _rotationTime),
-				new CubeRotationMode(this, _cubePlanes, _rotationTime)
+				new SideRotationMode(this, _parts, _rotationTime),
+				new CubeRotationMode(this, _rotationTime)
 			};
 
 			_currentRotationMode = _rotationModes[1];
 		}
 
-		public void Interact(Vector3 touchPosition, Vector3 direction)
+		private void Rotate(CubePlane plane, Vector3 touchPosition, Vector3 direction)
 		{
 			bool isRotating = _rotationModes.FirstOrDefault(x => x.IsStartRotation) != null;
 
 			if (!isRotating)
 			{
-				_currentRotationMode.Rotate(touchPosition, direction);
+				_currentRotationMode.Rotate(plane, touchPosition, direction);
 			}
 		}
 

@@ -17,26 +17,21 @@ namespace CubePuzzle.Cube
 
 		protected MonoBehaviour _target;
 
-		protected CubePlane[] _cubePlanes;
-
-		public RotationModeStrategy(MonoBehaviour target, CubePlane[] cubePlanes)
+		public RotationModeStrategy(MonoBehaviour target)
 		{
 			_target = target;
-			_cubePlanes = cubePlanes;
 		}
 
-		protected Vector3 GetRotateAroundAxis(Vector3 interactionPoint, Vector3 direction)
+		protected Vector3 GetRotateAroundAxis(CubePlane plane, Vector3 direction)
 		{
-			CubePlane cubePlane = _cubePlanes.First(x => x.ContainsPoint(interactionPoint));
-
-			Vector3[] axises = cubePlane.GetAxises();
+			Vector3[] axises = plane.GetAxises();
 
 			Vector3 result;
 
 			float firstAxisDot = Vector3.Dot(axises[0], direction);
 			float secondAxisDot = Vector3.Dot(axises[1], direction);
 
-			Vector3 offsetVector = cubePlane.GetOffsetAxis() * cubePlane.GetOffsetSighn();
+			Vector3 offsetVector = plane.GetOffsetAxis() * plane.GetOffsetSighn();
 
 			float angle;
 
@@ -62,6 +57,6 @@ namespace CubePuzzle.Cube
 		}
 
 
-		public abstract void Rotate(Vector3 interactionPoint, Vector3 direction);
+		public abstract void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction);
 	}
 }
