@@ -6,6 +6,9 @@ namespace CubePuzzle.Movement
 	public class CameraMovementController : MonoBehaviour
 	{
 		[SerializeField]
+		private Vector3 _cameraStartLocalRotation;
+
+		[SerializeField]
 		private Transform _centerPoint;
 
 		[SerializeField]
@@ -58,6 +61,8 @@ namespace CubePuzzle.Movement
 
 		private void Start()
 		{
+			_cameraTransform.localEulerAngles = _cameraStartLocalRotation;
+
 			_rotationX = _cameraTransform.localEulerAngles.x;
 			_rotationY = _cameraTransform.localEulerAngles.y;
 			_currentDistance = _maxDistance;

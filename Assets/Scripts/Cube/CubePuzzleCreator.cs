@@ -37,7 +37,7 @@ namespace CubePuzzle.Cube
 
 			bool isRotationFinished;
 
-			for (int i = 0; i < _rotationIterations; i++)
+			for (int i = 0; i < _rotationIterations || _cube.IsSolved; i++)
 			{
 				randomIndex = UnityEngine.Random.Range(0, _cubePlanes.Length);
 				randomCubePlane = _cubePlanes[randomIndex];

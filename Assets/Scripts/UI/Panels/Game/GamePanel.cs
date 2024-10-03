@@ -3,7 +3,6 @@ using CubePuzzle.Cube;
 using CubePuzzle.Interaction;
 using CubePuzzle.Movement;
 using CubePuzzle.VFXs;
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,6 +11,9 @@ namespace CubePuzzle.UI.Panels.Game
 {
 	public class GamePanel : MonoBehaviour
 	{
+		[SerializeField]
+		private CanvasGroup _canvasGroup;
+
 		[SerializeField]
 		private Toggle _viewModeToggle;
 
@@ -93,6 +95,7 @@ namespace CubePuzzle.UI.Panels.Game
 		{
 			SetActiveSwipeInteractor(isOn);
 
+
 			if (isOn)
 			{
 				_cube.SetRotationMode(RotationMode.SideRotation);
@@ -109,6 +112,16 @@ namespace CubePuzzle.UI.Panels.Game
 			{
 				_swipeInteractor.Disable();
 			}
+		}
+
+		public void EnableInteraction()
+		{
+			_canvasGroup.interactable = true;
+		}
+
+		public void DisableInteraction()
+		{
+			_canvasGroup.interactable = false;
 		}
 	}
 }
