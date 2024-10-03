@@ -26,7 +26,7 @@ namespace CubePuzzle.Cube
 			_rotationTime = rotationTime;
 		}
 
-		public override void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction)
+		public override void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction, Action callback)
 		{
 			if (!_isStartRotation)
 			{
@@ -37,7 +37,11 @@ namespace CubePuzzle.Cube
 
 				Vector3 rotationAxis = GetRotateAroundAxis(plane, direction);
 
-				_target.StartCoroutine(RotateCoroutine(_target.transform, rotationAxis, _rotationTime, () => _isStartRotation = false));
+				_target.StartCoroutine(RotateCoroutine(_target.transform, rotationAxis, _rotationTime, () =>
+				{
+					_isStartRotation = false;
+					callback?.Invoke();
+				}));
 			}
 		}
 

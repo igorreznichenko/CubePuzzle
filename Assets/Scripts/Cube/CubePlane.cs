@@ -11,6 +11,12 @@ namespace CubePuzzle.Cube
 		[SerializeField]
 		private CubePlaneType _cubePlaneType;
 
+		[SerializeField]
+		private float _size = 2;
+
+		[SerializeField]
+		private int _cellsInWidth = 2;
+
 		public event Action<CubePlane, Vector3, Vector3> InteractionEvent;
 
 		public CubePlaneType CubePlaneType
@@ -80,6 +86,50 @@ namespace CubePuzzle.Cube
 		{
 			float offset = GetOffset();
 			return offset / Mathf.Abs(offset);
+		}
+
+		public Vector3 GetRandomCellPoint()
+		{
+			float offset = GetOffset();
+
+			float randomPointAxis1 = -_size / 2 + UnityEngine.Random.Range(1, _cellsInWidth + 1);
+
+			float randomPointAxis2 = -_size / 2 + UnityEngine.Random.Range(1, _cellsInWidth + 1);
+
+			Vector3[] axises = GetAxises();
+
+			Vector3 resultPoint = axises[0] * randomPointAxis1 + axises[1] * randomPointAxis2;
+
+			switch (_cubePlaneType)
+			{
+				case CubePlaneType.XY:
+					resultPoint.z = offset;
+					break;
+				case CubePlaneType.XZ:
+					resultPoint.y = offset;
+					break;
+				case CubePlaneType.YZ:
+					resultPoint.x = offset;
+					break;
+			}
+
+			return resultPoint;
+		}
+
+		public Vector3 GetRandomRotationDirection()
+		{
+			Vector3[] axises = GetAxises();
+
+			int[] sighns = new int[] { -1, 1 };
+
+			int randomAxisIndex = UnityEngine.Random.Range(0, axises.Length);
+			int randomSighnIndex = UnityEngine.Random.Range(0, sighns.Length);
+
+			Vector3 axis = axises[randomAxisIndex];
+
+			int sighn = sighns[randomSighnIndex];
+
+			return axis * sighn;
 		}
 	}
 }

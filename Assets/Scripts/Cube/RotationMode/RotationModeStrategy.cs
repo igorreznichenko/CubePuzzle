@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -57,6 +58,6 @@ namespace CubePuzzle.Cube
 		}
 
 
-		public abstract void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction);
+		public abstract void Rotate(CubePlane plane, Vector3 interactionPoint, Vector3 direction, Action callack);
 	}
 }

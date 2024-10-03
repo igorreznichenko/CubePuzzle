@@ -58,7 +58,7 @@ namespace CubePuzzle.Cube
 
 		private void OncubePlaneInteractionEventHandler(CubePlane plane, Vector3 vector1, Vector3 vector2)
 		{
-			Rotate(plane, vector1, vector2);
+			Rotate(plane, vector1, vector2, null);
 		}
 
 		private void Initialize()
@@ -72,13 +72,13 @@ namespace CubePuzzle.Cube
 			_currentRotationMode = _rotationModes[1];
 		}
 
-		private void Rotate(CubePlane plane, Vector3 touchPosition, Vector3 direction)
+		public void Rotate(CubePlane plane, Vector3 touchPosition, Vector3 direction, Action callback)
 		{
 			bool isRotating = _rotationModes.FirstOrDefault(x => x.IsStartRotation) != null;
 
 			if (!isRotating)
 			{
-				_currentRotationMode.Rotate(plane, touchPosition, direction);
+				_currentRotationMode.Rotate(plane, touchPosition, direction, callback);
 			}
 		}
 
