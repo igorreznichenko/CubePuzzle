@@ -25,3 +25,4 @@ Ihor Reznichenko
 | Plugin name            | Version      | Notes                                                                                                                |
 |------------------------|--------------|----------------------------------------------------------------------------------------------------------------------|
 | TextMeshPro            | ver. 3.0.6   | [Link](https://docs.unity3d.com/Packages/com.unity.textmeshpro@3.0/manual/index.html)                                |
+| Input System           | ver. 1.7.0   | [Link](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.7/manual/index.html)                                |
