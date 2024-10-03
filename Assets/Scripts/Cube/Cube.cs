@@ -1,6 +1,4 @@
-using CubePuzzle.Constants;
 using CubePuzzle.Cube.Enums;
-using CubePuzzle.Interaction;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -21,7 +19,42 @@ namespace CubePuzzle.Cube
 		[SerializeField]
 		private float _rotationTime;
 
+		private bool _isSolved = true;
+
+		public event Action<bool> SolvingStateChangedEvent;
+
+		public bool IsSolved
+		{
+			get { return _isSolved; }
+
+			private set
+			{
+				if(_isSolved != value)
+				{
+					_isSolved = value;
+					SolvingStateChangedEvent?.Invoke(value);
+				}
+			}
+		}
+
+		public event Action<RotationMode> RotationModeChangedEvent;
+
 		private RotationModeStrategy _currentRotationMode = null;
+
+		private RotationModeStrategy CurrentRotationMode
+		{
+			get { return _currentRotationMode; }
+
+			set
+			{
+				if (CurrentRotationMode != value)
+				{
+					_currentRotationMode = value;
+
+					RotationModeChangedEvent?.Invoke(_currentRotationMode.RotationMode);
+				}
+			}
+		}
 
 		private RotationModeStrategy[] _rotationModes;
 
@@ -58,7 +91,7 @@ namespace CubePuzzle.Cube
 
 		private void OncubePlaneInteractionEventHandler(CubePlane plane, Vector3 vector1, Vector3 vector2)
 		{
-			Rotate(plane, vector1, vector2);
+			Rotate(plane, vector1, vector2, null);
 		}
 
 		private void Initialize()
@@ -69,21 +102,30 @@ namespace CubePuzzle.Cube
 				new CubeRotationMode(this, _rotationTime)
 			};
 
-			_currentRotationMode = _rotationModes[1];
+			CurrentRotationMode = _rotationModes[1];
 		}
 
-		private void Rotate(CubePlane plane, Vector3 touchPosition, Vector3 direction)
+		public void Rotate(CubePlane plane, Vector3 touchPosition, Vector3 direction, Action callback)
 		{
 			bool isRotating = _rotationModes.FirstOrDefault(x => x.IsStartRotation) != null;
 
 			if (!isRotating)
 			{
-				_currentRotationMode.Rotate(plane, touchPosition, direction);
+				_currentRotationMode.Rotate(plane, touchPosition, direction, () =>
+				{
+					CheckSolving();
+					callback?.Invoke();
+				});
 			}
 		}
 
 		#region Solving Check
-		private bool CheckSolve(CubePart[] parts)
+		private void CheckSolving()
+		{
+			IsSolved = IsInSolvedState(_parts);
+		}
+
+		private bool IsInSolvedState(CubePart[] parts)
 		{
 			if (IsFacesByDirectionHaveTheSameColor(parts, Vector3.up))
 			{
@@ -137,7 +179,7 @@ namespace CubePuzzle.Cube
 
 		public void SetRotationMode(RotationMode rotationMode)
 		{
-			_currentRotationMode = _rotationModes.First(x => x.RotationMode == rotationMode);
+			CurrentRotationMode = _rotationModes.First(x => x.RotationMode == rotationMode);
 		}
 	}
 }
