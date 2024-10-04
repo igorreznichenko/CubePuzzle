@@ -1,5 +1,8 @@
+using CubePuzzle.Constants;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 namespace CubePuzzle.Movement
 {
@@ -35,6 +38,13 @@ namespace CubePuzzle.Movement
 		[SerializeField]
 		private bool _isEnabled = false;
 
+		[SerializeField]
+		private PlayerInput _playerInput;
+
+		private InputAction _touch1InputAction;
+
+		private InputAction _touch2InputAction;
+
 		private Transform _cameraTransform;
 
 		private float _lastZoomGestureDistance = 0;
@@ -57,6 +67,9 @@ namespace CubePuzzle.Movement
 		private void Awake()
 		{
 			_cameraTransform = Camera.main.transform;
+
+			_touch1InputAction = _playerInput.actions[InputActionName.TOUCH1_ACTION_KEY];
+			_touch2InputAction = _playerInput.actions[InputActionName.TOUCH2_ACTION_KEY];
 		}
 
 		private void Start()
@@ -85,11 +98,9 @@ namespace CubePuzzle.Movement
 		{
 			if (_isEnabled)
 			{
-				int touchCount = Input.touchCount;
-
-				if (touchCount > 0)
+				if (_touch1InputAction.IsInProgress())
 				{
-					if (touchCount == 1)
+					if (!_touch2InputAction.IsInProgress())
 					{
 						_lastZoomGestureDistance = 0;
 						CalculateRotation();
@@ -110,8 +121,8 @@ namespace CubePuzzle.Movement
 
 		private void CalculateCameraDistance()
 		{
-			Touch first = Input.GetTouch(0);
-			Touch second = Input.GetTouch(1);
+			TouchState first = _touch1InputAction.ReadValue<TouchState>();
+			TouchState second = _touch2InputAction.ReadValue<TouchState>();
 
 			float distance = (first.position - second.position).magnitude;
 
@@ -131,9 +142,9 @@ namespace CubePuzzle.Movement
 
 		private void CalculateRotation()
 		{
-			Touch touch = Input.GetTouch(0);
+			TouchState touch = _touch1InputAction.ReadValue<TouchState>();
 
-			Vector2 touchMovement = touch.deltaPosition;
+			Vector2 touchMovement = touch.delta;
 
 			float xDelta = touchMovement.x * _moveSensitivity;
 

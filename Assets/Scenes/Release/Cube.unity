@@ -898,10 +898,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 911415630}
     m_Modifications:
+    - target: {fileID: 245381802709850016, guid: d6605146919e9da4da8b16d3d6850666,
+        type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 05340f242fe70454e8c07830017a3196,
+        type: 3}
     - target: {fileID: 3113909879622064964, guid: d6605146919e9da4da8b16d3d6850666,
         type: 3}
       propertyPath: m_Name
-      value: ScreenInput
+      value: PlayerInput
       objectReference: {fileID: 0}
     - target: {fileID: 7119130006284458155, guid: d6605146919e9da4da8b16d3d6850666,
         type: 3}
@@ -1114,6 +1120,11 @@ PrefabInstance:
       propertyPath: _centerPoint
       value: 
       objectReference: {fileID: 395733939}
+    - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
+        type: 3}
+      propertyPath: _playerInput
+      value: 
+      objectReference: {fileID: 178956243}
     - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
         type: 3}
       propertyPath: _moveSmoothTime
