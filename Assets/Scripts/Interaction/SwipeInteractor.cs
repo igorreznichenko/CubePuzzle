@@ -1,9 +1,16 @@
+using CubePuzzle.Constants;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
+using TouchPhase = UnityEngine.InputSystem.TouchPhase;
 
 namespace CubePuzzle.Interaction
 {
 	public class SwipeInteractor : MonoBehaviour
 	{
+		[SerializeField]
+		private PlayerInput _playerInput;
+
 		[SerializeField]
 		private ScreenRaycaster _screenRaycaster;
 
@@ -18,6 +25,8 @@ namespace CubePuzzle.Interaction
 		private Vector2 _currentInteractableStartScreenInteractionPoint = Vector2.zero;
 		private Vector3 _currentInteractableStartInteractionWorldPoint = Vector3.zero;
 
+		private InputAction _touch1InputAction;
+
 		public void Enable()
 		{
 			_isActive = true;
@@ -28,11 +37,16 @@ namespace CubePuzzle.Interaction
 			_isActive = false;
 		}
 
+		private void Awake()
+		{
+			_touch1InputAction = _playerInput.actions[InputActionName.TOUCH1_ACTION_KEY];
+		}
+
 		private void Update()
 		{
-			if (_isActive && Input.touchCount > 0)
+			if (_isActive && _touch1InputAction.IsInProgress())
 			{
-				Touch touch = Input.GetTouch(0);
+				TouchState touch = _touch1InputAction.ReadValue<TouchState>();
 
 				if (_interactable != null)
 				{
