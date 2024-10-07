@@ -1143,7 +1143,7 @@ PrefabInstance:
     - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
         type: 3}
       propertyPath: _zoomSensitivity
-      value: 0.2
+      value: 0.015
       objectReference: {fileID: 0}
     - target: {fileID: 8049832274968979826, guid: 8cb3b5de9e2ef7a47b29f8fde896933b,
         type: 3}
