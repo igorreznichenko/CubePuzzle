@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92c000bdea06b314ca8c230cd718ab49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasGroup: {fileID: 0}
   _viewModeToggle: {fileID: 6984574151382788274}
   _sideRotationMode: {fileID: 8034167726271689962}
   _cubeRotationMode: {fileID: 2452600726618481585}
@@ -181,6 +182,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9000358629048707790}
     m_Modifications:
+    - target: {fileID: 2914763824512631617, guid: ff3623fd79cc56f448626e656a6b3bf0,
+        type: 3}
+      propertyPath: m_text
+      value: View
+      objectReference: {fileID: 0}
     - target: {fileID: 3901613577722118268, guid: ff3623fd79cc56f448626e656a6b3bf0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -333,6 +339,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9000358629048707790}
     m_Modifications:
+    - target: {fileID: 2914763824512631617, guid: ff3623fd79cc56f448626e656a6b3bf0,
+        type: 3}
+      propertyPath: m_text
+      value: Rotate layer
+      objectReference: {fileID: 0}
     - target: {fileID: 3901613577722118268, guid: ff3623fd79cc56f448626e656a6b3bf0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -485,6 +496,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9000358629048707790}
     m_Modifications:
+    - target: {fileID: 2914763824512631617, guid: ff3623fd79cc56f448626e656a6b3bf0,
+        type: 3}
+      propertyPath: m_text
+      value: Rotate cube
+      objectReference: {fileID: 0}
     - target: {fileID: 3901613577722118268, guid: ff3623fd79cc56f448626e656a6b3bf0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -646,7 +662,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 781440c04709e33469e02b0ccd48d809,
+      objectReference: {fileID: 21300000, guid: c189c774908be2b488dc809bc157ba02,
         type: 3}
     - target: {fileID: 5044661798683908457, guid: c5f7534789da7954b91257002d638c7e,
         type: 3}
